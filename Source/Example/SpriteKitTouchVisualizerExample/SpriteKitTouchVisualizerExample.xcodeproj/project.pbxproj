@@ -31,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F6B4C5119C2A50C0005868D /* SpriteKitTouchVisualizerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitTouchVisualizerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F6B4C5119C2A50C0005868D /* TouchVisual.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchVisual.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F6B4C5519C2A50C0005868D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F6B4C5619C2A50C0005868D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F6B4C5819C2A50C0005868D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		1F6B4C5219C2A50C0005868D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F6B4C5119C2A50C0005868D /* SpriteKitTouchVisualizerExample.app */,
+				1F6B4C5119C2A50C0005868D /* TouchVisual.app */,
 				1F6B4C6F19C2A50D0005868D /* SpriteKitTouchVisualizerExampleTests.xctest */,
 			);
 			name = Products;
@@ -171,7 +171,7 @@
 			);
 			name = SpriteKitTouchVisualizerExample;
 			productName = SpriteKitTouchVisualizerExample;
-			productReference = 1F6B4C5119C2A50C0005868D /* SpriteKitTouchVisualizerExample.app */;
+			productReference = 1F6B4C5119C2A50C0005868D /* TouchVisual.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1F6B4C6E19C2A50D0005868D /* SpriteKitTouchVisualizerExampleTests */ = {
@@ -386,7 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TouchVisual;
 			};
 			name = Debug;
 		};
@@ -396,7 +396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TouchVisual;
 			};
 			name = Release;
 		};
