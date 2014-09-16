@@ -63,7 +63,13 @@
 {
     // Use custom subclass for view (displays sprites for each touch)
     
-    self.view = [[NFMVisibleTouchView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    NFMVisibleTouchView* view = [[NFMVisibleTouchView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [view setTouchesVisible:YES];
+    // Default is YES. Use for toggling visibility according to app context.
+    // (e.g., on during tutorial, off during game).
+    
+    self.view = view;
 }
 
 // .............................................................................

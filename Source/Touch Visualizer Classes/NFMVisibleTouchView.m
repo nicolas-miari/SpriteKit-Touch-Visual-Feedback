@@ -34,7 +34,12 @@
 {
     // Holds sprites for each touch
     NSMutableArray* _fingers;
+    
+    BOOL            _touchesAreVisible;
 }
+
+@synthesize touchesVisible = _touchesAreVisible;
+
 
 
 // .............................................................................
@@ -43,7 +48,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        _fingers = [NSMutableArray new];
+        [self initCommon];
     }
     
     return self;
@@ -55,9 +60,22 @@
 {
     if(self = [super initWithCoder:aDecoder]){
         
+        [self initCommon];
     }
     
     return self;
+}
+
+// .............................................................................
+
+- (void) initCommon
+{
+    // Initialization code shared by both designated initializers
+    // (grouped here to avoid duplication)
+
+    _touchesAreVisible = YES;
+    
+    _fingers = [NSMutableArray new];
 }
 
 // .............................................................................
@@ -68,6 +86,9 @@
     [super touchesBegan:touches withEvent:event];
     
     
+    if(!_touchesAreVisible){
+        return;
+    }
     
     // TODO:
     // 1. Trigger 'explosion' at each touch location
@@ -104,6 +125,10 @@
     
     [super touchesMoved:touches withEvent:event];
     
+    if(!_touchesAreVisible){
+        return;
+    }
+    
     
     for (NFMFingerSprite* finger in _fingers) {
         
@@ -129,6 +154,10 @@
 {
     [super touchesEnded:touches withEvent:event];
     
+    if(!_touchesAreVisible){
+        return;
+    }
+    
     for (NFMFingerSprite* finger in _fingers) {
         
         UITouch* touch = [finger touch];
@@ -148,6 +177,10 @@
 - (void) touchesCancelled:(NSSet*) touches withEvent:(UIEvent*) event
 {
     [super touchesCancelled:touches withEvent:event];
+    
+    if(!_touchesAreVisible){
+        return;
+    }
     
     // TODO: remove each finger
     
