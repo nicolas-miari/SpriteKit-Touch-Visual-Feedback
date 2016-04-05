@@ -31,7 +31,9 @@
 @interface NFMVisibleTouchView : SKView
 
 
-/// Changes take effect on first touch sequence after setting.
+/** 
+ Changes take effect on first touch sequence after setting.
+ */
 @property (nonatomic, readwrite, getter=areTouchesVisible) BOOL touchesVisible;
 
 

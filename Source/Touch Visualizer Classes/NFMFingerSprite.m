@@ -29,8 +29,14 @@
 
 // .............................................................................
 
+
+// Sprite texture, created along the first instance and shared afterwards among
+// all inistances.
 static SKTexture* texture = nil;
 
+
+// Keeps track of all active instances: increased by one on -init and decreased
+// by one on -dealloc. When it reaches zero, the shared texture is deallocated.
 static NSInteger instanceCount = 0;
 
 
@@ -38,7 +44,8 @@ static NSInteger instanceCount = 0;
 
 @implementation NFMFingerSprite
 {
-    // (Need to keep track with which touch this finger is associated)
+    // Keeps track of which touch the finger is associated with, so that the
+    // parent node can move this instance to match the touch position.
     UITouch*  __weak _touch;
 }
 
@@ -50,29 +57,15 @@ static NSInteger instanceCount = 0;
         texture = [SKTexture textureWithImage:[UIImage imageNamed:@"DefaultFinger"]];
     }
     
-    if (self = [super initWithTexture:texture]) {
+    if (self = [super initWithTexture:texture color:[SKColor whiteColor] size:texture.size]) {
         
         _touch = touch;
         
         [self setColorBlendFactor:1.0f];
         [self setColor:[SKColor blackColor]];
-        //[self setBlendMode:SKBlendModeMultiply];
-        
         [self setAlpha:0.0f];
         
-        SKAction* fadeIn = [SKAction fadeAlphaTo:0.25f duration:0.125f];
-        
-        SKAction* grow = [SKAction scaleTo:1.5f duration:0.0625];
-        [grow setTimingMode:SKActionTimingEaseOut];
-        
-        SKAction* shrink = [SKAction scaleTo:1.0f duration:0.125];
-        [shrink setTimingMode:SKActionTimingEaseOut];
-        
-        SKAction* pulse = [SKAction sequence:@[grow, shrink]];
-        
-        SKAction* appear = [SKAction group:@[pulse, fadeIn]];
-        
-        [self runAction:appear];
+        [self runAction:[self appearAction]];
         
         instanceCount++;
     }
@@ -80,7 +73,36 @@ static NSInteger instanceCount = 0;
     return self;
 }
 
-// .............................................................................
+
+- (SKAction*) appearAction
+{
+    // 1. Fade in
+    
+    SKAction* fadeInAction = [SKAction fadeAlphaTo:0.25f
+                                          duration:0.125f];
+    
+    
+    // 2. Pulse (Grow -> Shrink):
+    
+    SKAction* growAction = [SKAction scaleTo:1.5f
+                                    duration:0.0625];
+    [growAction setTimingMode:SKActionTimingEaseOut];
+    
+    SKAction* shrinkAction = [SKAction scaleTo:1.0f
+                                      duration:0.125];
+    [shrinkAction setTimingMode:SKActionTimingEaseOut];
+    
+    SKAction* pulseAction = [SKAction sequence:@[growAction, shrinkAction]];
+    
+    
+    // 3. Appear (Fade in // Pulse)
+    
+    SKAction* appearAction = [SKAction group:@[pulseAction, fadeInAction]];
+    
+    
+    return appearAction;
+}
+
 
 - (void) dealloc
 {
@@ -90,5 +112,25 @@ static NSInteger instanceCount = 0;
         texture = nil;
     }
 }
+
+
+// .............................................................................
+
+#pragma mark - Unavailable Superclass Initializers
+
+// (Based on this answer: http://stackoverflow.com/a/31830471/433373 )
+
+
+- (instancetype) initWithTexture:(SKTexture *)texture color:(UIColor *)color size:(CGSize)size
+{
+    @throw nil;
+}
+
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder
+{
+    @throw nil;
+}
+
 
 @end

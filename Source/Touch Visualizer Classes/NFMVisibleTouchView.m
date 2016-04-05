@@ -24,8 +24,9 @@
     THE SOFTWARE.
 */
 
-#import "NFMVisibleTouchView.h"
-#import "NFMFingerSprite.h"
+#import "NFMVisibleTouchView.h"         // Own header
+
+#import "NFMFingerSprite.h"             // Child object
 
 
 // .............................................................................
@@ -41,45 +42,36 @@
 @synthesize touchesVisible = _touchesAreVisible;
 
 
-
 // .............................................................................
+
+#pragma mark - Initialization
+
 
 - (instancetype) initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         
-        [self initCommon];
+        [self setup];
     }
     
     return self;
 }
 
-// .............................................................................
 
 - (instancetype) initWithCoder:(NSCoder*) aDecoder
 {
     if(self = [super initWithCoder:aDecoder]){
         
-        [self initCommon];
+        [self setup];
     }
     
     return self;
 }
 
-// .............................................................................
-
-- (void) initCommon
-{
-    // Initialization code shared by both designated initializers
-    // (grouped here to avoid duplication)
-
-    _touchesAreVisible = YES;
-    
-    _fingers = [NSMutableArray new];
-}
 
 // .............................................................................
 
+#pragma mark - UIResponder
 
 - (void) touchesBegan:(NSSet*) touches withEvent:(UIEvent*) event
 {
@@ -89,15 +81,6 @@
     if(!_touchesAreVisible){
         return;
     }
-    
-    // TODO:
-    // 1. Trigger 'explosion' at each touch location
-    
-    /*
-    for (UITouch* touch in touches) {
-
-    }
-    */
     
     
     // 2. Place a 'finger' sprite at each touch location
@@ -113,14 +96,14 @@
     }
 }
 
-// .............................................................................
 
 - (void) touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
     /*
-     touches only contained the touches that moved. [event allTouches]
-     contains all the touches of the current sequence; event those for fingers
-     that are still. We need them all to update all finger sprites.
+     touches only contains the touches that moved. In contrast, 
+     [event allTouches] contains all the touches of the current sequence (even
+     those for fingers that are still). 
+     We need them all to update all finger sprites.
      */
     
     [super touchesMoved:touches withEvent:event];
@@ -148,50 +131,67 @@
     }
 }
 
-// .............................................................................
 
 - (void) touchesEnded:(NSSet*) touches withEvent:(UIEvent*) event
 {
     [super touchesEnded:touches withEvent:event];
     
-    if(!_touchesAreVisible){
-        return;
-    }
-    
-    for (NFMFingerSprite* finger in _fingers) {
-        
-        UITouch* touch = [finger touch];
-        
-        if (touch && [touches containsObject:touch]){
-            
-            [finger runAction:[SKAction fadeAlphaTo:0.0f duration:0.125] completion:^(){
-                [_fingers removeObject:finger];
-                [finger removeFromParent];
-            }];
-        }
-    }
+    [self removeFingersForTouches:touches];
 }
 
-// .............................................................................
 
 - (void) touchesCancelled:(NSSet*) touches withEvent:(UIEvent*) event
 {
     [super touchesCancelled:touches withEvent:event];
     
+    [self removeFingersForTouches:touches];
+}
+
+
+// .............................................................................
+
+#pragma mark - Internal Support
+
+
+- (void) setup
+{
+    // Initialization code shared by both designated initializers
+    // (grouped here to avoid duplication)
+    
+    _touchesAreVisible = YES;
+    
+    _fingers = [NSMutableArray new];
+}
+
+
+- (void) removeFingersForTouches:(NSSet*) touches
+{
+    // Cleanup code shared by both -touchedEnded:withEvent: and
+    // -touchesCancelled:withEvent: (grouped here to avoid duplication)
+    
     if(!_touchesAreVisible){
         return;
     }
     
-    // TODO: remove each finger
+    // Remove afected fingers from screen and array:
     
     for (NFMFingerSprite* finger in _fingers) {
         
         UITouch* touch = [finger touch];
         
-        if (touch && [touches containsObject:touch]){
+        if (touch == nil){
+            continue; // Should never happen, but...
+        }
+        
+        if ([touches containsObject:touch]){
             
             [finger runAction:[SKAction fadeAlphaTo:0.0f duration:0.125] completion:^(){
+                
+                // Removal from array is deferred to 0.125 seconds later (i.e.,
+                // long after the loop completes), so there is no consistency
+                // problems (no need to iterate on a copy of the array):
                 [_fingers removeObject:finger];
+                
                 [finger removeFromParent];
             }];
         }

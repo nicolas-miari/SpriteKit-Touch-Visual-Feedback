@@ -100,8 +100,8 @@
 				1F6B4C6019C2A50C0005868D /* GameViewController.h */,
 				1F6B4C6119C2A50C0005868D /* GameViewController.m */,
 				1F6B4C6319C2A50C0005868D /* Main.storyboard */,
-				1F6B4C6619C2A50C0005868D /* Images.xcassets */,
 				1F6B4C6819C2A50C0005868D /* LaunchScreen.xib */,
+				1F6B4C6619C2A50C0005868D /* Images.xcassets */,
 				1F6B4C5419C2A50C0005868D /* Supporting Files */,
 			);
 			path = SpriteKitTouchVisualizerExample;
@@ -198,7 +198,7 @@
 		1F6B4C4919C2A50C0005868D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Nicolás Miari";
 				TargetAttributes = {
 					1F6B4C5019C2A50C0005868D = {
@@ -322,6 +322,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -385,8 +386,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasmiari.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TouchVisual;
 			};
 			name = Debug;
@@ -396,8 +398,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasmiari.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TouchVisual;
 			};
 			name = Release;
@@ -416,6 +419,7 @@
 				);
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasmiari.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpriteKitTouchVisualizerExample.app/SpriteKitTouchVisualizerExample";
 			};
@@ -431,6 +435,7 @@
 				);
 				INFOPLIST_FILE = SpriteKitTouchVisualizerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasmiari.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpriteKitTouchVisualizerExample.app/SpriteKitTouchVisualizerExample";
 			};

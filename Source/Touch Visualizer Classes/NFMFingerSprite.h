@@ -26,17 +26,37 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-/*!
+/** 
+ Displays on screen the position of the finger corresponding to one touch.
  */
 @interface NFMFingerSprite : SKSpriteNode
 
-///
-@property (nonatomic, readonly) UITouch* touch;
 
-
-/*!
+/** 
+ The touch object associated with the finger sprite.
  */
-- (instancetype) initWithTouch:(UITouch*) touch;
+@property (nonatomic, readonly, nullable) UITouch* touch;
 
+
+/** 
+ Designated initializer.
+ */
+- (nullable instancetype) initWithTouch:(nullable UITouch*) touch NS_DESIGNATED_INITIALIZER;
+
+
+/** 
+ Forbid instantiation via this intializer (instances need a touch object to
+ operate properly).
+ */
+- (nullable instancetype) initWithCoder:(nonnull NSCoder*) aDecoder NS_UNAVAILABLE;
+
+
+/**
+ Forbid instantiation via this intializer (instances need a touch object to
+ operate properly).
+ */
+- (nonnull instancetype) initWithTexture:(nullable SKTexture *)texture
+                                    color:(nullable UIColor *)color
+                                     size:(CGSize)size NS_UNAVAILABLE;
 
 @end

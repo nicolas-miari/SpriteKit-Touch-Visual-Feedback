@@ -52,11 +52,12 @@
 
 @end
 
+
 @implementation GameViewController
 
 // .............................................................................
 
-#pragma mark - This Method Incorporated Touch Visual Feedback
+#pragma mark - This Method Incorporates Touch Visual Feedback
 
 
 - (void) loadView
@@ -64,17 +65,22 @@
     // Use custom subclass for view (displays sprites for each touch)
     
     NFMVisibleTouchView* view = [[NFMVisibleTouchView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.view = view;
+    
     
     [view setTouchesVisible:YES];
     // Default is YES. Use for toggling visibility according to app context.
-    // (e.g., on during tutorial, off during game).
+    // (e.g., on during tutorial, off during game). If you set it to NO, it
+    // works exactly as a stock SKView.
     
-    self.view = view;
+    
+    // Enable multiple touch support for this example:
+    [view setMultipleTouchEnabled:YES];
 }
 
 // .............................................................................
 
-#pragma mark -
+#pragma mark - UIViewController
 
 
 - (void) viewDidLoad
@@ -100,16 +106,14 @@
     [skView presentScene:scene];
 }
 
-// .............................................................................
 
 - (BOOL)shouldAutorotate
 {
     return YES;
 }
 
-// .............................................................................
 
-- (NSUInteger) supportedInterfaceOrientations
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
@@ -118,7 +122,6 @@
     }
 }
 
-// .............................................................................
 
 - (void) didReceiveMemoryWarning
 {
@@ -126,13 +129,11 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-// .............................................................................
 
 - (BOOL) prefersStatusBarHidden
 {
     return YES;
 }
 
-// .............................................................................
 
 @end
