@@ -1,5 +1,5 @@
-SpriteKit Touch Visualizer
-==========================
+# SpriteKit Touch Visual Feedback
+
 
 Custom objective-c classes for visualizing the on screen position of each input touch (finger) in SpriteKit apps. 
 
